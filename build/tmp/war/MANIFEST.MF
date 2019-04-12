@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Implementation-Title: com.mutualofomaha.gsg
+Implementation-Version: 1.0-Snapshot
+Built-By: req87981
+Implementation-Vendor-Id: com.mutualofomaha.gsg
+Implementation-Vendor: Mutual of Omaha
+

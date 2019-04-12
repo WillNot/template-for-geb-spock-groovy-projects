@@ -1,0 +1,43 @@
+apply plugin: 'com.mutualofomaha.war-conventions'
+apply plugin: 'com.mutualofomaha.jenkins-conventions'
+apply plugin: 'com.mutualofomaha.groovy-conventions'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+description = 'Mutual of Omaha Geb Training'
+group 'com.mutualofomaha.gsg'
+version = '1.0-Snapshot'
+
+buildscript {
+    dependencies {
+        classpath 'com.mutualofomaha:functional-tests-plugin:2.0.+'
+    }
+}
+
+apply plugin: 'com.mutualofomaha.functional-tests'
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:2.4.9"
+    functionalTestCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+    functionalTestCompile "org.gebish:geb-spock:2.1"
+    functionalTestCompile "org.spockframework:spock-core:1.1-groovy-2.4"
+    functionalTestCompile "org.seleniumhq.selenium:selenium-chrome-driver:3.13.0"
+    functionalTestCompile "org.seleniumhq.selenium:selenium-firefox-driver:3.13.0"
+    functionalTestCompile "org.seleniumhq.selenium:selenium-ie-driver:3.13.0"
+    functionalTestCompile "org.seleniumhq.selenium:selenium-support:3.13.0"
+}
+
+pipelineConfig {
+    asi = 'gsg'
+    projectName = 'MasterProject'
+
+    createPipeline {
+        initJob()
+        buildAndUnitTestJob()
+        staticCodeAnalysisJob()
+        publishSnapshotJob()
+        promoteToReleaseCandidateJob()
+        promoteToReleaseJob()
+    }
+}
